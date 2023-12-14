@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-stroke {
+  -webkit-text-stroke: inherit;
+  -webkit-text-stroke: initial;
+  -webkit-text-stroke: revert;
+  -webkit-text-stroke: revert-layer;
+  -webkit-text-stroke: unset;
+
+  -webkit-text-stroke: 1.5px black;
+  text-stroke: 1.5px black;
+  color: white;
+}

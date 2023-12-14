@@ -1,28 +1,19 @@
-# Create T3 App
+# Resources related to website
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Research for creation of this project looked at a number of topics. Some of which I was not able to include, but need to be mentioned in order to highlight areas of improvement.
 
-## What's next? How do I make an app with this?
+## Source of data
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+https://documenter.getpostman.com/view/14793990/TzmCgD9k
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Sphere packing
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Used for generating layout of atom nucleus
+https://en.wikipedia.org/wiki/Sphere_packing
 
-## Learn More
+## Electron layers
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Each shell can contain only a fixed number of electrons: The first shell can hold up to two electrons, the second shell can hold up to eight (2 + 6) electrons, the third shell can hold up to 18 (2 + 6 + 10) and so on. The general formula is that the nth shell can in principle hold up to 2n2 electrons.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- https://en.wikipedia.org/wiki/Energy_level#:~:text=Each%20shell%20can%20contain%20only,to%202n2%20electrons
+- https://en.wikipedia.org/wiki/Aufbau_principle#Madelung_energy_ordering_rule
