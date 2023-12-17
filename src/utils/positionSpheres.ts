@@ -69,7 +69,8 @@ export function calculatePositions(
   //   while (positions.length < numSpheres) {
   // let newPoint = getRandomPointOnSphere(containerRadius);
 
-  const numSpheresInRow = Math.ceil(Math.sqrt(numSpheres));
+  const numSpheresInRow = Math.ceil(Math.sqrt(numSpheres) / 2) + 3;
+  //   const numSpheresInRow = Math.ceil(Math.sqrt(numSpheres));
 
   let newX = 0;
   let offsetY = 0;
@@ -109,7 +110,6 @@ export function calculatePositions(
     return Math.abs(aDistance) - Math.abs(bDistance);
   });
 
-  console.log(positions);
   // Remove extra positions that are furthest from the center
   while (positions.length > numSpheres) {
     positions.pop();

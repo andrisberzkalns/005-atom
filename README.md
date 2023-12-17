@@ -17,3 +17,4 @@ Each shell can contain only a fixed number of electrons: The first shell can hol
 
 - https://en.wikipedia.org/wiki/Energy_level#:~:text=Each%20shell%20can%20contain%20only,to%202n2%20electrons
 - https://en.wikipedia.org/wiki/Aufbau_principle#Madelung_energy_ordering_rule
+- https://en.wikipedia.org/wiki/Electron_configurations_of_the_elements_(data_page)
