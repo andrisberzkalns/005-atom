@@ -5,7 +5,7 @@ export function rotate(
   y: number,
   angle: number,
 ): [number, number] {
-  var radians = (Math.PI / 180) * angle,
+  const radians = (Math.PI / 180) * angle,
     cos = Math.cos(radians),
     sin = Math.sin(radians),
     nx = cos * (x - cx) + sin * (y - cy) + cx,

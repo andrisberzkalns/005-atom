@@ -10,11 +10,11 @@ export const DynamicText = ({ children: text }: { children: string }) => {
       const div = divRef.current;
 
       let fontSize = 10; // Start with an initial font size
-      let divWidth = div.offsetWidth;
+      const divWidth = div.offsetWidth;
       let textWidth;
 
       // Create a temporary element to measure the text width
-      let tempElement = document.createElement("span");
+      const tempElement = document.createElement("span");
       tempElement.innerText = text;
       tempElement.style.visibility = "hidden";
       div.appendChild(tempElement);

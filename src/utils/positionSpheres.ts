@@ -1,41 +1,43 @@
-interface Position {
+import * as THREE from "three";
+
+export interface Position {
   x: number;
   y: number;
   z: number;
 }
 
-function getRandomPointOnSphere(radius: number): Position {
-  // Generate two random angles
-  let theta = 2 * Math.PI * Math.random(); // Range: [0, 2π]
-  let phi = Math.acos(2 * Math.random() - 1); // Range: [0, π]
+// function getRandomPointOnSphere(radius: number): Position {
+//   // Generate two random angles
+//   let theta = 2 * Math.PI * Math.random(); // Range: [0, 2π]
+//   let phi = Math.acos(2 * Math.random() - 1); // Range: [0, π]
 
-  // Convert spherical coordinates to Cartesian coordinates
-  let x = radius * Math.sin(phi) * Math.cos(theta);
-  let y = radius * Math.sin(phi) * Math.sin(theta);
-  let z = radius * Math.cos(phi);
+//   // Convert spherical coordinates to Cartesian coordinates
+//   let x = radius * Math.sin(phi) * Math.cos(theta);
+//   let y = radius * Math.sin(phi) * Math.sin(theta);
+//   let z = radius * Math.cos(phi);
 
-  return { x, y, z };
-}
+//   return { x, y, z };
+// }
 
-function isPointCloseToOthers(
-  point: Position,
-  points: Position[],
-  threshold: number,
-): boolean {
-  for (let i = 0; i < points.length; i++) {
-    let dx = points[i]!.x - point.x;
-    let dy = points[i]!.y - point.y;
-    let dz = points[i]!.z - point.z;
+// function isPointCloseToOthers(
+//   point: Position,
+//   points: Position[],
+//   threshold: number,
+// ): boolean {
+//   for (let i = 0; i < points.length; i++) {
+//     let dx = points[i]!.x - point.x;
+//     let dy = points[i]!.y - point.y;
+//     let dz = points[i]!.z - point.z;
 
-    let distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+//     let distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-    if (distance < threshold * 2) {
-      return true;
-    }
-  }
+//     if (distance < threshold * 2) {
+//       return true;
+//     }
+//   }
 
-  return false;
-}
+//   return false;
+// }
 
 // export function calculatePositions(
 //   numSpheres: number,
@@ -61,10 +63,9 @@ function isPointCloseToOthers(
 
 export function calculatePositions(
   numSpheres: number,
-  sphereRadius: number,
-  containerRadius: number,
-) {
-  let positions: Position[] = [];
+  sphereRadius: number
+): Position[] {
+  const positions: Position[] = [];
 
   //   while (positions.length < numSpheres) {
   // let newPoint = getRandomPointOnSphere(containerRadius);
@@ -91,11 +92,7 @@ export function calculatePositions(
         } else {
           offsetX = 0;
         }
-        let newPoint = {
-          x: newX - centerOffset,
-          y: j * sphereRadius * 2 + offsetY - centerOffset,
-          z: k * sphereRadius * 2 + offsetX - centerOffset,
-        };
+        const newPoint = new THREE.Vector3(newX - centerOffset, j * sphereRadius * 2 + offsetY - centerOffset, k * sphereRadius * 2 + offsetX - centerOffset);
         positions.push(newPoint);
       }
     }
@@ -104,8 +101,8 @@ export function calculatePositions(
 
   // Order by distance from center
   positions.sort((a, b) => {
-    let aDistance = Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-    let bDistance = Math.sqrt(b.x * b.x + b.y * b.y + b.z * b.z);
+    const aDistance = Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+    const bDistance = Math.sqrt(b.x * b.x + b.y * b.y + b.z * b.z);
 
     return Math.abs(aDistance) - Math.abs(bDistance);
   });

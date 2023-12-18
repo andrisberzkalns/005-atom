@@ -1,21 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Canvas from "~/app/_components/Canvas";
-import {
-  OrbitControls,
-  OrthographicCamera,
-  Outlines,
-  Sphere,
-  StatsGl,
-  Trail,
-} from "@react-three/drei";
-import * as THREE from "three";
 import { DynamicText } from "~/app/_components/DynamicText";
-import { rotate } from "~/utils/rotate";
 import { atom } from "~/data";
-import electronCalculation from "~/utils/electronCalculation";
-import calculatePositions from "~/utils/positionSpheres";
 import { Button } from "~/app/_components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -71,10 +59,10 @@ export default function Home({ params }: { params: { atomicNumber: string } }) {
         <div className="grow"></div>
         <div className="relative z-10 w-screen select-none pb-32">
           <span className="text-stroke absolute w-full pr-4 text-right text-3xl font-black leading-[normal] tracking-[0] text-white [font-family:'Inter-Black',Helvetica] md:text-9xl lg:pr-12 lg:text-9xl">
-            {element && element.atomicNumber}
+            {element?.atomicNumber}
           </span>
           <span className="absolute w-full pr-4 text-right text-3xl font-black leading-[normal] tracking-[0] text-white [font-family:'Inter-Black',Helvetica] md:text-9xl lg:pr-12 lg:text-9xl">
-            {element && element.atomicNumber}
+            {element?.atomicNumber}
           </span>
           <div className="mb-2 pl-4 lg:pl-12">
             <span className="text-3xl font-black leading-[normal] tracking-[0] text-black [font-family:'Inter-Black',Helvetica] md:text-5xl lg:text-6xl">

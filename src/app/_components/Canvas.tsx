@@ -6,18 +6,14 @@ import {
   OrbitControls,
   OrthographicCamera,
   Outlines,
-  Sphere,
-  StatsGl,
-  Trail,
 } from "@react-three/drei";
 import * as THREE from "three";
 import { rotate } from "~/utils/rotate";
-import { atom } from "~/data";
 import electronCalculation from "~/utils/electronCalculation";
-import calculatePositions from "~/utils/positionSpheres";
+import calculatePositions, { Position } from "~/utils/positionSpheres";
 
 export const Canvas: React.FC<{
-  element: any;
+  element: {atomicNumber: number};
 }> = ({ element }) => {
   return (
     <ThreeCanvas className="absolute left-0 top-0 h-screen w-screen">
@@ -28,7 +24,7 @@ export const Canvas: React.FC<{
 
 const PROTON_NEUTRON_RADIUS = 0.4;
 
-export const Proton: React.FC<any> = (props) => {
+export const Proton = (props: MeshProps) => {
   const [hovered, setHovered] = React.useState(false);
 
   return (
@@ -101,10 +97,10 @@ export const Electron: React.FC<{
   const meshRef = React.useRef<THREE.Mesh>(null);
   const radius = getElectronLevelRadius(level);
   const secondsRotation = 1 / rotationSpeed;
-  const initial = rotate(0, 0, radius!, radius!, initialAngle);
+  const initial = rotate(0, 0, radius, radius, initialAngle);
 
   useFrame((state) => {
-    if (!meshRef.current || !meshRef.current.position) return;
+    if (!meshRef.current?.position) return;
     const position = meshRef.current.position;
 
     const et = state.clock.elapsedTime;
@@ -113,7 +109,7 @@ export const Electron: React.FC<{
     const [nx, ny] = rotate(0, 0, initial[0], initial[1], it * 360);
     if (!nx || !ny) return;
 
-    // position.set(nx, 0, ny);
+    position.set(nx, 0, ny);
   });
 
   return (
@@ -175,8 +171,7 @@ export const Scene: React.FC<{
 
   const positions = calculatePositions(
     atomicNumber * 2,
-    PROTON_NEUTRON_RADIUS,
-    10,
+    PROTON_NEUTRON_RADIUS
   );
 
   useFrame(() => {
@@ -211,7 +206,7 @@ export const Scene: React.FC<{
       </mesh> */}
       <React.Suspense fallback={null}>
         <mesh>
-          {positions.map((position, index) => {
+          {positions.map((position: Position, index) => {
             if (index % 2 === 0) {
               return (
                 <Proton
