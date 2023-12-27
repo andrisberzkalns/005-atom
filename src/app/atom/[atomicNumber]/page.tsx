@@ -41,6 +41,7 @@ export default function Home({ params }: { params: { atomicNumber: string } }) {
         className="absolute left-4 top-1/2 z-20 my-auto px-2 py-8 shadow-md"
         disabled={Number(element?.atomicNumber) === 1}
         onClick={() => prevElement()}
+        aria-label="Previous element"
       >
         <ChevronLeft strokeWidth={1} />
       </Button>
@@ -49,6 +50,7 @@ export default function Home({ params }: { params: { atomicNumber: string } }) {
         className="absolute right-4 top-1/2 z-20 my-auto px-2 py-8 shadow-md"
         disabled={Number(element?.atomicNumber) === atom.length}
         onClick={() => nextElement()}
+        aria-label="Next element"
       >
         <ChevronRight strokeWidth={1} />
       </Button>
