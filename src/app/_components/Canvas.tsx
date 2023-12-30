@@ -256,6 +256,13 @@ export const Scene: React.FC<{
           <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
         </mesh>
       }
+      {
+        parts.electrons.some((electron) => electron.level == 7) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[29.7, 29.75, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
       <React.Suspense fallback={null}>
         <mesh>
           {parts.protons.map((position: THREE.Vector3, index) => 
