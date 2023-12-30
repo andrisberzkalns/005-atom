@@ -41,8 +41,6 @@ function electronCalculation(atomicNumber: number): number[] {
     output[Number(key[0]) - 1] += value;
   }
 
-  console.log(output);
-
   return output;
 }
 

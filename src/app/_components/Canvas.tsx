@@ -10,7 +10,7 @@ import {
 import * as THREE from "three";
 import { rotate } from "~/utils/rotate";
 import electronCalculation from "~/utils/electronCalculation";
-import calculatePositions, { Position } from "~/utils/positionSpheres";
+import calculatePositions from "~/utils/positionSpheres";
 import elementCalculation from "~/utils/elementCalculation";
 import shuffle from "~/utils/shuffle";
 
@@ -182,7 +182,7 @@ export const Scene: React.FC<{
   useEffect(() => {
     const counts = elementCalculation(atomicNumber, mass);
 
-    const positions = shuffle(calculatePositions(
+    const positions = shuffle<THREE.Vector3>(calculatePositions(
       counts.protons + counts.neutrons,
       PROTON_NEUTRON_RADIUS
     ));
@@ -232,13 +232,13 @@ export const Scene: React.FC<{
       </mesh> */}
       <React.Suspense fallback={null}>
         <mesh>
-          {parts.protons.map((position: Position, index) => 
+          {parts.protons.map((position: THREE.Vector3, index) => 
             <Proton
               position={[position.x, position.y, position.z]}
               key={index}
             />
           )}
-          {parts.neutrons.map((position: Position, index) =>
+          {parts.neutrons.map((position: THREE.Vector3, index) =>
             <Neutron
               position={[position.x, position.y, position.z]}
               key={index}
