@@ -4,6 +4,10 @@ export function calculatePositions(
   numSpheres: number,
   sphereRadius: number
 ): THREE.Vector3[] {
+  if (numSpheres == 1) {
+    return [new THREE.Vector3(0, 0, 0)];
+  }
+
   const positions: THREE.Vector3[] = [];
 
   //   while (positions.length < numSpheres) {
