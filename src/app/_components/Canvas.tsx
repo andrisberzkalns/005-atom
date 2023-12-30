@@ -115,14 +115,6 @@ export const Electron: React.FC<{
   });
 
   return (
-    // <Trail
-    //   width={0.05} // Width of the line
-    //   color={"#efefef"} // Color of the line
-    //   length={20} // Length of the line
-    //   decay={1} // How fast the line fades away
-    //   interval={1} // Number of frames to wait before next calculation
-    //   target={undefined} // Optional target. This object will produce the trail.
-    // >
     <mesh {...props} ref={meshRef} position={[initial[0], 0, initial[1]]}>
       <sphereGeometry args={[0.125, 16, 16]} />
       <meshStandardMaterial color="white" />
@@ -135,7 +127,6 @@ export const Electron: React.FC<{
         angle={0}
       />
     </mesh>
-    // </Trail>
   );
 };
 
@@ -222,14 +213,49 @@ export const Scene: React.FC<{
       <directionalLight position={[15, 50, 5]} intensity={10} />
       <directionalLight position={[-15, -50, -5]} intensity={2} />
       <ambientLight intensity={1} />
-      {/* <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[100, 100]} />
-        <meshStandardMaterial color="white" />
-      </mesh>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[100, 100]} />
-        <meshStandardMaterial color="white" />
-      </mesh> */}
+      
+      {
+        parts.electrons.some((electron) => electron.level == 1) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[4.3, 4.25, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
+      {
+      parts.electrons.some((electron) => electron.level == 2) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[8.55, 8.5, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
+      {
+        parts.electrons.some((electron) => electron.level == 3) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[12.7, 12.75, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
+      {
+        parts.electrons.some((electron) => electron.level == 4) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[16.95, 17, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
+      {
+        parts.electrons.some((electron) => electron.level == 5) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[21.2, 21.25, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
+      {
+        parts.electrons.some((electron) => electron.level == 6) &&
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[25.45, 25.5, 80]} />
+          <meshBasicMaterial color="darkgray" side={THREE.DoubleSide} />
+        </mesh>
+      }
       <React.Suspense fallback={null}>
         <mesh>
           {parts.protons.map((position: THREE.Vector3, index) => 
@@ -245,12 +271,6 @@ export const Scene: React.FC<{
             />
           )}
         </mesh>
-
-        {/* <Proton position={[-0.7, 0, -0.7]} />
-        <Proton position={[-0.7, 0, -0.7]} />
-        <Proton position={[0.7, 0, 0.7]} />
-        <Neutron position={[-1, 0, 1]} />
-        <Neutron position={[1, 0, -1]} /> */}
         {parts.electrons.map((electron, index) => (
           <Electron {...electron} key={index} />
         ))}

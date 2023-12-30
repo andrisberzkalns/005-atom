@@ -42,7 +42,7 @@ export const DynamicText = ({ children: text }: { children: string }) => {
   return (
     <div
       ref={divRef}
-      className="w-screen font-black leading-none text-white [font-family:'Inter-Black',Helvetica]"
+      className="w-screen font-black leading-none text-white [font-family:'Inter-Black',Helvetica] select-none"
     >
       {text}
     </div>
