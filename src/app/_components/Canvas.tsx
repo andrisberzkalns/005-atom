@@ -11,13 +11,15 @@ import * as THREE from "three";
 import { rotate } from "~/utils/rotate";
 import electronCalculation from "~/utils/electronCalculation";
 import calculatePositions, { Position } from "~/utils/positionSpheres";
+import elementCalculation from "~/utils/elementCalculation";
+import shuffle from "~/utils/shuffle";
 
 export const Canvas: React.FC<{
-  element: {atomicNumber: number};
+  element: {atomicNumber: number, atomicMass: string};
 }> = ({ element }) => {
   return (
     <ThreeCanvas className="absolute left-0 top-0 h-screen w-screen">
-      <Scene atomicNumber={Number(element?.atomicNumber)} />
+      <Scene atomicNumber={Number(element?.atomicNumber)} mass={Number(element.atomicMass.split("(")[0])} />
     </ThreeCanvas>
   );
 };
@@ -159,28 +161,52 @@ const calculateElectrons = (atomicNumber: number) => {
 
 export const Scene: React.FC<{
   atomicNumber: number;
-}> = ({ atomicNumber }): JSX.Element => {
+  mass: number;
+}> = ({ atomicNumber, mass }): JSX.Element => {
   const cameraRef = React.useRef<THREE.OrthographicCamera>(null);
-  const [electrons, setElectrons] = React.useState<
-    {
+  const [parts, setParts] = React.useState<{
+    protons: THREE.Vector3[];
+    neutrons: THREE.Vector3[];
+    electrons: {
       initialAngle: number;
       level: number;
       rotationSpeed: number;
-    }[]
-  >(calculateElectrons(atomicNumber));
-
-  const positions = calculatePositions(
-    atomicNumber * 2,
-    PROTON_NEUTRON_RADIUS
-  );
-
+    }[];
+  }>({ protons: [], neutrons: [], electrons: [] });
+  
   useFrame(() => {
     if (!cameraRef.current) return;
     cameraRef.current?.lookAt(new THREE.Vector3(0, 0, 0));
   });
 
   useEffect(() => {
-    setElectrons(calculateElectrons(atomicNumber));
+    const counts = elementCalculation(atomicNumber, mass);
+
+    const positions = shuffle(calculatePositions(
+      counts.protons + counts.neutrons,
+      PROTON_NEUTRON_RADIUS
+    ));
+    const protons: THREE.Vector3[] = [];
+    const neutrons: THREE.Vector3[] = [];
+
+    for (let i = 0; i < positions.length; i++) {
+      const position = positions[i];
+      if (!position) continue;
+
+      if (i < counts.protons) {
+        protons.push( position );
+      } else {
+        neutrons.push( position );
+      }
+    }
+
+    setParts({
+      protons: protons,
+      neutrons: neutrons,
+      electrons: calculateElectrons(atomicNumber),
+    })
+    // setElectrons(calculateElectrons(atomicNumber));
+    // setNeutrons(counts.neutrons);
   }, [atomicNumber]);
 
   return (
@@ -206,23 +232,18 @@ export const Scene: React.FC<{
       </mesh> */}
       <React.Suspense fallback={null}>
         <mesh>
-          {positions.map((position: Position, index) => {
-            if (index % 2 === 0) {
-              return (
-                <Proton
-                  position={[position.x, position.y, position.z]}
-                  key={index}
-                />
-              );
-            } else {
-              return (
-                <Neutron
-                  position={[position.x, position.y, position.z]}
-                  key={index}
-                />
-              );
-            }
-          })}
+          {parts.protons.map((position: Position, index) => 
+            <Proton
+              position={[position.x, position.y, position.z]}
+              key={index}
+            />
+          )}
+          {parts.neutrons.map((position: Position, index) =>
+            <Neutron
+              position={[position.x, position.y, position.z]}
+              key={index}
+            />
+          )}
         </mesh>
 
         {/* <Proton position={[-0.7, 0, -0.7]} />
@@ -230,7 +251,7 @@ export const Scene: React.FC<{
         <Proton position={[0.7, 0, 0.7]} />
         <Neutron position={[-1, 0, 1]} />
         <Neutron position={[1, 0, -1]} /> */}
-        {electrons.map((electron, index) => (
+        {parts.electrons.map((electron, index) => (
           <Electron {...electron} key={index} />
         ))}
       </React.Suspense>

@@ -1,71 +1,10 @@
 import * as THREE from "three";
 
-export interface Position {
-  x: number;
-  y: number;
-  z: number;
-}
-
-// function getRandomPointOnSphere(radius: number): Position {
-//   // Generate two random angles
-//   let theta = 2 * Math.PI * Math.random(); // Range: [0, 2π]
-//   let phi = Math.acos(2 * Math.random() - 1); // Range: [0, π]
-
-//   // Convert spherical coordinates to Cartesian coordinates
-//   let x = radius * Math.sin(phi) * Math.cos(theta);
-//   let y = radius * Math.sin(phi) * Math.sin(theta);
-//   let z = radius * Math.cos(phi);
-
-//   return { x, y, z };
-// }
-
-// function isPointCloseToOthers(
-//   point: Position,
-//   points: Position[],
-//   threshold: number,
-// ): boolean {
-//   for (let i = 0; i < points.length; i++) {
-//     let dx = points[i]!.x - point.x;
-//     let dy = points[i]!.y - point.y;
-//     let dz = points[i]!.z - point.z;
-
-//     let distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-//     if (distance < threshold * 2) {
-//       return true;
-//     }
-//   }
-
-//   return false;
-// }
-
-// export function calculatePositions(
-//   numSpheres: number,
-//   sphereRadius: number,
-//   containerRadius: number,
-// ) {
-//   let positions: Position[] = [];
-//   let it = 0;
-
-//   while (positions.length < numSpheres) {
-//     let newPoint = getRandomPointOnSphere(containerRadius);
-//     if (!isPointCloseToOthers(newPoint, positions, sphereRadius)) {
-//       positions.push(newPoint);
-//     }
-//     if (it > positions.length + 100) {
-//       console.log("Could not find enough positions");
-//       break;
-//     }
-//   }
-
-//   return positions;
-// }
-
 export function calculatePositions(
   numSpheres: number,
   sphereRadius: number
-): Position[] {
-  const positions: Position[] = [];
+): THREE.Vector3[] {
+  const positions: THREE.Vector3[] = [];
 
   //   while (positions.length < numSpheres) {
   // let newPoint = getRandomPointOnSphere(containerRadius);
